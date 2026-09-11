@@ -28,9 +28,10 @@ jq --version
    ```bash
    brew install yt-dlp ffmpeg jq
    ```
-2. Abra o Terminal e entre na pasta do script:
+2. Clone o repositório e entre na pasta:
    ```bash
-   cd ~/Downloads/YouTube
+   git clone https://github.com/LukaszFokin/video_downloader.git
+   cd video_downloader
    ```
 3. Dê permissão de execução ao script (só precisa fazer isso uma vez):
    ```bash
@@ -40,7 +41,7 @@ jq --version
    ```bash
    ./baixar.sh "https://www.youtube.com/shorts/xxxxxxxxx"
    ```
-5. Confira o resultado na pasta correspondente à plataforma, ex.: `~/Downloads/YouTube/YouTube/`.
+5. Confira o resultado na pasta de destino (veja [Onde os vídeos são salvos](#onde-os-vídeos-são-salvos)).
 
 Dica: sempre coloque o link entre aspas (`"..."`) pra evitar que o Terminal interprete caracteres como `?`, `&` e `=` como comandos.
 
@@ -67,14 +68,15 @@ Para baixar de novo um link que já foi baixado antes (por padrão ele é pulado
 1. Detecta a plataforma pelo domínio do link: `youtube.com`/`youtu.be` → YouTube, `tiktok.com` → TikTok, `instagram.com` → Instagram (qualquer outro domínio vai para `Outros`).
 2. Confere no arquivo de controle `.baixados.json` se aquele link já foi baixado antes. Se já foi, pula (a menos que use `--force`).
 3. Baixa o vídeo com `yt-dlp`, escolhendo a melhor qualidade disponível, priorizando o codec **H.264 + AAC** (garante que o arquivo abra em qualquer player — QuickTime, Preview, etc. não tocam vídeo em VP9/AV1 dentro de `.mp4`, mesmo que o arquivo pareça válido).
-4. Salva o arquivo final em `~/Downloads/YouTube/<Plataforma>/<prefixo>_<timestamp>.mp4`, onde o prefixo é `yt`, `tk` ou `ig` e o timestamp é a data/hora do download (`AAAAMMDDHHMMSS`).
+4. Salva o arquivo final em `<destino>/<Plataforma>/<prefixo>_<timestamp>.mp4`, onde o prefixo é `yt`, `tk` ou `ig` e o timestamp é a data/hora do download (`AAAAMMDDHHMMSS`).
 5. Registra o link no `.baixados.json` para não baixar de novo nas próximas execuções.
 
-## Estrutura de pastas gerada
+## Onde os vídeos são salvos
+
+Por padrão o destino é `~/Downloads/YouTube` (definido pela variável `DEST` no início do `baixar.sh`) — pasta separada de onde o script está instalado/clonado. Pra mudar o destino, edite essa variável no script.
 
 ```
 ~/Downloads/YouTube/
-├── baixar.sh
 ├── .baixados.json          # controle de links já baixados (não editar manualmente)
 ├── YouTube/
 │   └── yt_20260911133045.mp4
@@ -99,7 +101,3 @@ Guarda um mapa de link → informações do download:
 ```
 
 Se quiser "esquecer" um link específico (forçar novo download sem usar `--force` em todos), edite esse arquivo e remova a entrada correspondente, ou apague o arquivo inteiro para resetar o controle completo.
-
-## Script antigo (baixar_youtube.sh)
-
-Ainda existe na pasta, mas só baixa do YouTube e não tem controle de duplicados. Prefira `baixar.sh` para qualquer uso novo.
