@@ -73,10 +73,11 @@ Para baixar de novo um link que já foi baixado antes (por padrão ele é pulado
 
 ## Onde os vídeos são salvos
 
-Por padrão o destino é `~/Downloads/YouTube` (definido pela variável `DEST` no início do `baixar.sh`) — pasta separada de onde o script está instalado/clonado. Pra mudar o destino, edite essa variável no script.
+O destino é sempre a pasta onde o `baixar.sh` está (a pasta clonada), não importa de onde você o chama. Não precisa configurar nada.
 
 ```
-~/Downloads/YouTube/
+video_downloader/
+├── baixar.sh
 ├── .baixados.json          # controle de links já baixados (não editar manualmente)
 ├── YouTube/
 │   └── yt_20260911133045.mp4

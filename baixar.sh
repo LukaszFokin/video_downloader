@@ -7,7 +7,7 @@
 
 set -e
 
-DEST="$HOME/Downloads/YouTube"
+DEST="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 CONTROLE="$DEST/.baixados.json"
 
 mkdir -p "$DEST"
